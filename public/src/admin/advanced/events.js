@@ -22,8 +22,9 @@ define('admin/advanced/events', ['bootbox', 'alerts', 'autocomplete'], function 
 
 	Events.init = function () {
 		
-		$('[data-action="clear"]').on('click', handleClick());
+		$('[data-action="clear"]').on('click', handleClick);
 		
+
 		$('.delete-event').on('click', function () {
 			const $parentEl = $(this).parents('[data-eid]');
 			const eid = $parentEl.attr('data-eid');
