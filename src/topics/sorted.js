@@ -266,12 +266,13 @@ module.exports = function (Topics) {
 
 		const cids = params.cids && params.cids.map(String);
 		const { tags } = params;
+		const isValidCids = t => (t && t.cid && !isCidIgnored[t.cid]);
+		const cidInCids = t => (!cids || cids.includes(String(t.cid)));
+		const hasRequiredTags = t => (!tags.length || tags.every(tag => t.tags.find(topicTag => topicTag.value === tag)));
 		tids = topicData.filter(t => (
-			t &&
-			t.cid &&
-			!isCidIgnored[t.cid] &&
-			(!cids || cids.includes(String(t.cid))) &&
-			(!tags.length || tags.every(tag => t.tags.find(topicTag => topicTag.value === tag)))
+			isValidCids(t) &&
+			cidInCids(t) &&
+			hasRequiredTags(t)
 		)).map(t => t.tid);
 
 		const result = await plugins.hooks.fire('filter:topics.filterSortedTids', { tids: tids, params: params });
