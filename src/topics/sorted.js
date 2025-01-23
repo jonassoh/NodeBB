@@ -9,6 +9,7 @@ const user = require('../user');
 const categories = require('../categories');
 const meta = require('../meta');
 const plugins = require('../plugins');
+
 console.log('Jonas Soh');
 module.exports = function (Topics) {
 	Topics.getSortedTopics = async function (params) {
